@@ -1,0 +1,19 @@
+*httpclient.txt* Execute C# expressions or evaluation C# statements
+
+Author: Kazark (@Kazark on Github, StackExchange)
+License: MIT
+
+INTRODUCTION                                    *httpclient*
+
+Use POSTman in Chrome or RESTClient in Firefox for hitting HTTP APIs? What about
+doing it from Vim instead of your browser?
+
+COMMANDS                                        *httpclient-commands*
+
+                                                *httpclient-:Put*
+:Put [url]                  Send an HTTP request with the `PUT` verb to the
+                            given URL. The contents of the current file are used
+                            as the body of the request. Pop up a window with the
+                            HTTP response. A `Content-Type` header is added
+                            based on the filetype.
+
