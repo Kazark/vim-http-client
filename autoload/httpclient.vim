@@ -5,19 +5,31 @@ if exists('g:httpclient_loaded')
 endif
 let g:httpclient_loaded = 1
 
-function httpclient#put(url)
-    let l:bodyFile = expand('%')
+function httpclient#contentType()
     if &filetype == 'xml'
-        let l:contentType = "Content-Type: application/xml"
+        return "Content-Type: application/xml"
     else
-        let l:contentType = "Content-Type: text/plain"
+        return "Content-Type: text/plain"
     endif
-    let l:verb = 'PUT'
+endfunction
+
+function httpclient#splitbelow()
     let l:oldsplitbelow=&splitbelow
     set splitbelow
     new
     let &splitbelow=l:oldsplitbelow
     setlocal buftype=nofile
     setlocal noswapfile
-    execute "read!curl -si -X " . l:verb . ' -H "' . l:contentType . '" -T ' . l:bodyFile . " " . a:url
+    setfiletype http
+endfunction
+
+function httpclient#curlWithBody(verb, contentType, url, bodyFile)
+    execute "read!curl -si -X " . a:verb . ' -H "' . a:contentType . '" -T ' . a:bodyFile . " " . a:url
+endfunction
+
+function httpclient#requestWithBody(verb, url)
+    let l:bodyFile = expand('%')
+    let l:contentType = httpclient#contentType()
+    call httpclient#splitbelow()
+    call httpclient#curlWithBody(a:verb, l:contentType, a:url, l:bodyFile)
 endfunction
