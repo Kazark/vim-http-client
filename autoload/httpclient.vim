@@ -23,6 +23,16 @@ function httpclient#splitbelow()
     setfiletype http
 endfunction
 
+function httpclient#request(verb, url)
+    let l:bodyFile = expand('%')
+    call httpclient#splitbelow()
+    call httpclient#curl(a:verb, a:url)
+endfunction
+
+function httpclient#curl(verb, url)
+    execute "read!curl -si -X " . a:verb . " " . a:url
+endfunction
+
 function httpclient#curlWithBody(verb, contentType, url, bodyFile)
     execute "read!curl -si -X " . a:verb . ' -H "' . a:contentType . '" -T ' . a:bodyFile . " " . a:url
 endfunction

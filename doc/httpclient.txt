@@ -12,15 +12,22 @@ This is a cURL wrapper for Vim.
 
 COMMANDS                                        *httpclient-commands*
 
-                                                *httpclient-:HttpPost*
-:HttpPost [url]             Send an HTTP request with the `POST` verb to the
+                                                *httpclient-:HttpGet*
+:HttpGet [url]              Send an HTTP request with the `GET` verb to the
                             given URL and pop up a window with the HTTP
-                            response. The contents of the current file are used
-                            as the body of the request and a `Content-Type`
-                            header is added based on the filetype.
+                            response. 
 
+                                                *httpclient-:HttpDelete*
+:HttpDelete [url]           Like |:HttpGet|, but send the request with the
+                            `DELETE` verb instead.
+
+                                                *httpclient-:HttpPost*
+:HttpPost [url]             Like |:HttpGet|, but send the request with the
+                            `POST` verb instead. The contents of the current
+                            file are used as the body of the request and a
+                            `Content-Type` header is added based on the
+                            filetype.
 
                                                 *httpclient-:HttpPut*
 :HttpPut [url]              Like |:HttpPost|, but send the request with the
                             `PUT` verb instead.
-
