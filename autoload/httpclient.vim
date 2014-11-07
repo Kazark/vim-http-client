@@ -7,9 +7,11 @@ let g:httpclient_loaded = 1
 
 function httpclient#contentType()
     if &filetype == 'xml'
-        return "Content-Type: application/xml"
+        return "application/xml"
+    elseif &filetype == 'json'
+        return "application/json"
     else
-        return "Content-Type: text/plain"
+        return "text/plain"
     endif
 endfunction
 
@@ -34,7 +36,7 @@ function httpclient#curl(verb, url)
 endfunction
 
 function httpclient#curlWithBody(verb, contentType, url, bodyFile)
-    execute "read!curl -si -X " . a:verb . ' -H "' . a:contentType . '" -T ' . a:bodyFile . " " . a:url
+    execute "read!curl -si -X " . a:verb . ' -H "Content-Type: ' . a:contentType . '" -T ' . a:bodyFile . " " . a:url
 endfunction
 
 function httpclient#requestWithBody(verb, url)
